@@ -6,4 +6,4 @@ secondarily this repository was created to learn how to use git, github, and rus
 
 
 
-although set to public this is not a meaingful repository
+although set to public this is not a meaningful repository
