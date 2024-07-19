@@ -46,7 +46,7 @@ fn guessing_game(range: (u32, u32)) {
             Ordering::Equal => {
                 println!("guess == secret");
                 assert_eq!(guess, secret_number);
-                break;
+                break; //meow
             }
         }
     }
