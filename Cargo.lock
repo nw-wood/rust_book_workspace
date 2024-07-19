@@ -76,7 +76,6 @@ dependencies = [
 name = "_1_getting_started"
 version = "0.1.0"
 dependencies = [
- "rand",
  "rust_book_utilities",
 ]
 
@@ -98,6 +97,7 @@ dependencies = [
 name = "_2_programming_a_guessing_game"
 version = "0.1.0"
 dependencies = [
+ "rand",
  "rust_book_utilities",
 ]
 
