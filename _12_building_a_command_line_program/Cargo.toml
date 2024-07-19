@@ -1,0 +1,7 @@
+[package]
+name = "_12_building_a_command_line_program"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rust_book_utilities = { path = "../rust_book_utilities" }

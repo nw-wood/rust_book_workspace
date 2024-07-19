@@ -1,0 +1,7 @@
+[package]
+name = "_10_generic_types_traits_and_lifetimes"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rust_book_utilities = { path = "../rust_book_utilities" }

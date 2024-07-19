@@ -1,0 +1,28 @@
+[package]
+name = "rust_book_run"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+_1_getting_started                          = { path = "../_1_getting_started" }
+_2_programming_a_guessing_game              = { path = "../_2_programming_a_guessing_game" }
+_3_common_programming_concepts              = { path = "../_3_common_programming_concepts" }
+_4_understanding_owndership                 = { path = "../_4_understanding_owndership" }
+_5_using_structs_to_structure_related_data  = { path = "../_5_using_structs_to_structure_related_data" }
+_6_enums_and_pattern_matching               = { path = "../_6_enums_and_pattern_matching" }
+_7_packages_crates_and_modules              = { path = "../_7_packages_crates_and_modules" }
+_8_common_collections                       = { path = "../_8_common_collections" }
+_9_error_handling                           = { path = "../_9_error_handling" }
+_10_generic_types_traits_and_lifetimes      = { path = "../_10_generic_types_traits_and_lifetimes" }
+_11_writing_automated_tests                 = { path = "../_11_writing_automated_tests" }
+_12_building_a_command_line_program         = { path = "../_12_building_a_command_line_program" }
+_13_iterators_and_closures                  = { path = "../_13_iterators_and_closures" }
+_14_cargo_and_crates_io                     = { path = "../_14_cargo_and_crates_io" }
+_15_smart_pointers                          = { path = "../_15_smart_pointers" }
+_16_fearless_concurrency                    = { path = "../_16_fearless_concurrency" }
+_17_object_oreinted_programming_in_rust     = { path = "../_17_object_oreinted_programming_in_rust" }
+_18_patterns_and_matching                   = { path = "../_18_patterns_and_matching" }
+_19_advanced_features                       = { path = "../_19_advanced_features" }
+_20_building_a_multithreaded_web_server     = { path = "../_20_building_a_multithreaded_web_server" }
+_21_appendix                                = { path = "../_21_appendix" }
+rust_book_utilities                         = { path = "../rust_book_utilities" }

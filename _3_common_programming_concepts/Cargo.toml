@@ -1,0 +1,7 @@
+[package]
+name = "_3_common_programming_concepts"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rust_book_utilities = { path = "../rust_book_utilities" }

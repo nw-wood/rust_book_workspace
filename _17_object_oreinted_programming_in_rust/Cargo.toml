@@ -1,0 +1,7 @@
+[package]
+name = "_17_object_oreinted_programming_in_rust"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rust_book_utilities = { path = "../rust_book_utilities" }

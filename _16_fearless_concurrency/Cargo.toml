@@ -1,0 +1,7 @@
+[package]
+name = "_16_fearless_concurrency"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rust_book_utilities = { path = "../rust_book_utilities" }

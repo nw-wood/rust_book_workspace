@@ -1,0 +1,7 @@
+[package]
+name = "_5_using_structs_to_structure_related_data"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rust_book_utilities = { path = "../rust_book_utilities" }

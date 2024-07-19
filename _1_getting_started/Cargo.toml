@@ -1,0 +1,8 @@
+[package]
+name = "_1_getting_started"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rust_book_utilities = { path = "../rust_book_utilities" }
+rand = "0.8.5"
