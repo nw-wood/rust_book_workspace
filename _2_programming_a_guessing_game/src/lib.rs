@@ -7,7 +7,19 @@ const CHAPTER_NAME: &str    = "2.0 programming a guessing game";
 const CHAPTER_SUMMARY: &str = "\
 in this chapter we crash coursed a guessing game";
 
-pub fn run_summary() { rust_book_utilities::chapter_summary(CHAPTER_NAME, CHAPTER_SUMMARY); }
+pub fn run_summary() {
+    rust_book_utilities::chapter_summary(CHAPTER_NAME, CHAPTER_SUMMARY);
+    use_imports()
+}
+
+fn use_imports() { //silences unused import warning - they are used in tests
+    let x = rand::thread_rng().gen_range(0..2);
+    let y = 3;
+    match x.cmp(&y) {
+        Ordering::Less => (),
+        _ => (),
+    }
+}
 
 #[cfg(test)]
 mod _2_tests {

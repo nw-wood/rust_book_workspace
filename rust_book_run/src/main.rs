@@ -3,7 +3,7 @@ use rust_book_utilities;
 use _1_getting_started;
 use _2_programming_a_guessing_game;
 use _3_common_programming_concepts;
-use _4_understanding_owndership;
+use _4_understanding_ownership;
 use _5_using_structs_to_structure_related_data;
 use _6_enums_and_pattern_matching;
 use _7_packages_crates_and_modules;
@@ -28,7 +28,7 @@ fn main() {
     _1_getting_started::run_summary();
     _2_programming_a_guessing_game::run_summary();
     _3_common_programming_concepts::run_summary();
-    _4_understanding_owndership::run_summary();
+    _4_understanding_ownership::run_summary();
     _5_using_structs_to_structure_related_data::run_summary();
     _6_enums_and_pattern_matching::run_summary();
     _7_packages_crates_and_modules::run_summary();
@@ -48,10 +48,10 @@ fn main() {
     _21_appendix::run_summary();
 
     println!("\
-    --- more in depth explanations in tests contained within their respective libraries
-    --- code written in here is modified; don't expect exact examples copy pasted
-    --- consider the commit history practical progress
-    --- some things may be entirely restructured later
-    --- </blurb>");
+--- more in depth explanations in tests contained within their respective libraries
+--- code written in here is modified; don't expect exact examples copy pasted
+--- consider the commit history practical progress
+--- some things may be entirely restructured later
+--- </blurb>");
 
 }

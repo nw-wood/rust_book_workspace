@@ -109,7 +109,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "_4_understanding_owndership"
+name = "_4_understanding_ownership"
 version = "0.1.0"
 dependencies = [
  "rust_book_utilities",
@@ -228,7 +228,7 @@ dependencies = [
  "_21_appendix",
  "_2_programming_a_guessing_game",
  "_3_common_programming_concepts",
- "_4_understanding_owndership",
+ "_4_understanding_ownership",
  "_5_using_structs_to_structure_related_data",
  "_6_enums_and_pattern_matching",
  "_7_packages_crates_and_modules",
