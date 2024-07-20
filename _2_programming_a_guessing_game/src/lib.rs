@@ -10,7 +10,7 @@ in this chapter we crash coursed a guessing game";
 pub fn run_summary() { rust_book_utilities::chapter_summary(CHAPTER_NAME, CHAPTER_SUMMARY); }
 
 #[cfg(test)]
-mod tests {
+mod _2_tests {
     use super::*;
 
     #[test]

@@ -8,7 +8,7 @@ const CHAPTER_SUMMARY: &str = "\
 pub fn run_summary() { rust_book_utilities::chapter_summary(CHAPTER_NAME, CHAPTER_SUMMARY); }
 
 #[cfg(test)]
-mod tests {
+mod _18_tests {
     use super::*;
 
     #[test]

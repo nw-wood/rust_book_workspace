@@ -11,7 +11,7 @@ in this chapter we learned some stuff";
 pub fn run_summary() { rust_book_utilities::chapter_summary(CHAPTER_NAME, CHAPTER_SUMMARY); }
 
 #[cfg(test)]
-mod tests {
+mod _4_tests {
     use super::*;
 
     #[test]

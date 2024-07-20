@@ -12,7 +12,7 @@ In this chapter we go over some stuff!";
 pub fn run_summary() { rust_book_utilities::chapter_summary(CHAPTER_NAME, CHAPTER_SUMMARY); }
 
 #[cfg(test)]
-mod tests {
+mod _3_tests {
     use super::*;
     //--------------------------------------------- 3.1 variables and mutability
     #[test]
@@ -95,6 +95,22 @@ mod tests {
         //attempting to access a[10] panics with 'index out of bounds: len is 5, index is 10'
     }
     //--------------------------------------------- 3.3 functions
+    #[test]
+    fn functional_fun() {
+        fn beep(x: i32, y: String) -> i32 {
+            println!("{y}");
+            assert_eq!(x, 3);
+            x + 10
+        }
+        let x = beep(3, String::from("hello, test"));
+        assert_eq!(x, 13);
+        //let y = (let x = 3); does not make sense
+        let y = { //scope statement to evaluate and return expression
+            let x = 3;
+            x + 10
+        };
+        assert_eq!(x, y);
+    }
 
     #[test]
     fn show_summary() {
