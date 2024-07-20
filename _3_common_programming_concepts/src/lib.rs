@@ -97,6 +97,9 @@ mod _3_tests {
     //--------------------------------------------- 3.3 functions
     #[test]
     fn functional_fun() {
+        fn plus_one(x: i32) -> i32 {
+            x + 1
+        }
         fn beep(x: i32, y: String) -> i32 {
             println!("{y}");
             assert_eq!(x, 3);
@@ -109,8 +112,16 @@ mod _3_tests {
             let x = 3;
             x + 10
         };
-        assert_eq!(x, y);
+        let y = plus_one(y);
+        assert_eq!(plus_one(x), y);
     }
+    //--------------------------------------------- 3.4 comments
+    /*#[test]
+    fn this_is_a_comment() {
+        println!("this won't ever happen because it's in a comment block");
+    }
+    this code does not exist
+     */
 
     #[test]
     fn show_summary() {
