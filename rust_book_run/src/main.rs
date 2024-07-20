@@ -23,6 +23,7 @@ use _20_building_a_multithreaded_web_server;
 use _21_appendix;
 
 fn main() {
+
     rust_book_utilities::run_summary();
     _1_getting_started::run_summary();
     _2_programming_a_guessing_game::run_summary();
@@ -45,5 +46,12 @@ fn main() {
     _19_advanced_features::run_summary();
     _20_building_a_multithreaded_web_server::run_summary();
     _21_appendix::run_summary();
-    println!("--- more in depth explanations in tests contained within their respective libraries");
+
+    println!("\
+    --- more in depth explanations in tests contained within their respective libraries
+    --- code written in here is modified; don't expect exact examples copy pasted
+    --- consider the commit history practical progress
+    --- some things may be entirely restructured later
+    --- </blurb>");
+
 }
