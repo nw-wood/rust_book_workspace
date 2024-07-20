@@ -11,6 +11,8 @@ get some of the basics working with the compiler
 and the package manager. Very little in terms of
 code and much more in the way of setup.";
 
+pub fn run_summary() { rust_book_utilities::chapter_summary(CHAPTER_NAME, CHAPTER_SUMMARY); }
+
 #[cfg(test)]
 mod tests {
     use super::*;
