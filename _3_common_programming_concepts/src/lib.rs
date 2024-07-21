@@ -4,8 +4,9 @@ const CHAPTER_NAME: &str    = "3.0 common programming concepts";
 const CHAPTER_SUMMARY: &str = "\
 3.1 - variables and mutability; 'let this = that'
 3.2 - data types;               'i32, f64, arrays, etc'
-3.3 - functions;
-3.4 - commands;
+3.3 - functions;                'different types of signatures'
+3.4 - comments;                 '//'
+3.5 - control flow;             'if for while loop else'
 
 In this chapter we go over some stuff!";
 
