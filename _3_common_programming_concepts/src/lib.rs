@@ -122,7 +122,63 @@ mod _3_tests {
     }
     this code does not exist
      */
-
+    //--------------------------------------------- 3.5 control flow
+    #[test]
+    fn if_expressions() {
+        let number = 3;
+        if number == 3 {
+            assert_eq!(number, 3);
+        } else {
+            assert_eq!(number, number);
+        }
+    }
+    #[test]
+    fn if_in_let_expressions() {
+        let condition = true;
+        let number = if condition { 5 } else { 6 };
+        assert_eq!(number, 5);
+    }
+    #[test]
+    fn loop_and_break() {
+        let mut count = 0;
+        loop {
+            count += 1;
+            if count == 10 { break; }
+        }
+        assert_eq!(count, 10);
+    }
+    #[test]
+    fn loop_labels() {
+        //these allow for embedded loops where you can break out of a loop explicitly
+        let mut count = 0;
+        'outer_loop: loop {
+            let mut inside_count = 0;
+            count += 1;
+            'inner_loop: loop {
+                inside_count += 1;
+                if inside_count + count == 20 { break 'outer_loop; }
+                else if inside_count == 10 { break 'inner_loop; }
+            }
+        }
+        assert_eq!(count, 10);
+    }
+    #[test]
+    fn while_conditional_loop() {
+        let mut n = 3;
+        while n != 0 {
+            n-=1;
+        }
+        assert_eq!(n, 0);
+    }
+    #[test]
+    fn basic_for_loops() {
+        let a = [10; 10];
+        for e in a {
+            assert_eq!(e, 10);
+        }
+        //for e in (1..4).rev() { etc }
+        //slice tests later
+    }
     #[test]
     fn show_summary() {
         rust_book_utilities::chapter_summary(CHAPTER_NAME, CHAPTER_SUMMARY);
