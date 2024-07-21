@@ -76,6 +76,13 @@ mod _4_tests {
     //--------------------------------------------- 4.2 references and borrowing
     #[test]
     fn example_reference_usage() {
+
+
+        fn calculate_length(s: &String) -> usize { s.len() } //s: &String drops
+        let s = String::from("hi");
+        let len = calculate_length(&s); //takes ownership of a reference, not s
+        assert_eq!(len, 2);
+        //references will allow you to refer to a value without taking ownership of it
         /*let s = String::from("hi"); --- figure out derefs - why is clone needed?
         //let r = &s;
         //let r2 = &s;
@@ -99,12 +106,24 @@ mod _4_tests {
         let n = &mut p;
         n.push_str("ya"); //n dereferences all the way back to mut s address?
         println!("s: {s}");*/
+    }
+    #[test]
+    fn mutable_references() {
+        fn change(s: &mut String) {
+            s.push_str("ya"); //mutate the data the mut ref pointed to
+        }
+        let mut s = String::from("hi");
+        change(&mut s);
+        //it's important to know that if a reference to a variable exists
+        //then it can not also have an existing mutable reference
+        //although many refs to one thing can exist otherwise
 
-        fn calculate_length(s: &String) -> usize { s.len() } //s: &String drops
-        let s = String::from("hi");
-        let len = calculate_length(&s); //takes ownership of a reference, not s
-        assert_eq!(len, 2);
-        //references will allow you to refer to a value without taking ownership of it
+        //interestingly so long as references are used the compiler can work out
+        //whether it's okay to introduce a mutable reference afterward
+        //let r1 = &s;
+        //let r2 = &s;
+        //println!("{}{}", r1, r2);
+        //let r3 = &mut s; <----------------- this would be fine
 
     }
     #[test]
