@@ -73,6 +73,40 @@ mod _4_tests {
         let tup = calc_len(String::from("hi"));
         assert_eq!(tup.0, 2usize);
     }
+    //--------------------------------------------- 4.2 references and borrowing
+    #[test]
+    fn example_reference_usage() {
+        /*let s = String::from("hi"); --- figure out derefs - why is clone needed?
+        //let r = &s;
+        //let r2 = &s;
+        let r3 = &s;
+        //fn ref_test<'a>(r: &'a String, r2: &'a String) -> (&'a String, &'a String) {
+        //    (r, r2) //playing with lifetimes early - r, r2, (r, r2) return all the same?
+        //}
+        //let t = ref_test(r, r2);
+        //println!("{}, {}", t.0, t.1);
+        //assert_eq!(t.0, r);
+        //let s = r.clone();
+        println!("ssss: {s}");
+        //println!("r3: {}", * r3);
+        //let x = *r3;
+        let x = r3.clone();
+        assert_eq!(x, s);*/
+
+        /*let mut s = String::from("hi");
+        let mut r = &mut s;
+        let mut p = &mut r; //mut ref gets moved into p from r
+        let n = &mut p;
+        n.push_str("ya"); //n dereferences all the way back to mut s address?
+        println!("s: {s}");*/
+
+        fn calculate_length(s: &String) -> usize { s.len() } //s: &String drops
+        let s = String::from("hi");
+        let len = calculate_length(&s); //takes ownership of a reference, not s
+        assert_eq!(len, 2);
+        //references will allow you to refer to a value without taking ownership of it
+
+    }
     #[test]
     fn show_summary() {
         rust_book_utilities::chapter_summary(CHAPTER_NAME, CHAPTER_SUMMARY);
