@@ -25,11 +25,13 @@ fn use_imports() { //silences unused import warning - they are used in tests
 mod _2 {
     use super::*;
 
+
     #[test]
     fn _0_show_summary() {
         rust_book_utilities::chapter_summary(CHAPTER_NAME, CHAPTER_SUMMARY);
         assert_eq!(1,1)
     }
+
 
     #[test]
     fn _0_run_guessing_game() {

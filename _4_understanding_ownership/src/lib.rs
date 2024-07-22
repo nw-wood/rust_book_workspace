@@ -15,6 +15,8 @@ pub fn run_summary() { rust_book_utilities::chapter_summary(CHAPTER_NAME, CHAPTE
 #[cfg(test)]
 mod _4 {
     use super::*;
+
+
     //--------------------------------------------- 4.1 what is ownership
     #[test]
     fn _1_string_mutation() {
@@ -23,6 +25,8 @@ mod _4 {
         println!("{s}");
         assert_eq!(s, String::from("hello world"));
     }
+
+
     #[test]
     fn _1_borrowing_with_some_types() {
         let s1 = String::from("hello");
@@ -31,18 +35,24 @@ mod _4 {
         //assert_eq!(s1, s2); will not work for the same reason
         assert_eq!(s2, String::from("hello"));
     }
+
+
     #[test]
     fn _1_cloning_instead_of_moving() {
         let s1 = String::from("hi");
         let s2 = s1.clone();
         assert_eq!(s1, s2);
     }
+
+
     #[test]
     fn _1_stack_only_copying() {
         let x = 5; //integer in stack not heap like a string
         let y = x; //x does not move into y, it is copied
         assert_eq!(y, x);
     }
+
+
     #[test]
     fn _1_ownership_with_function_params() {
         fn takes_ownership(s: String) {
@@ -58,6 +68,8 @@ mod _4 {
         //assert_eq!(s, String::from("hi")); string moved to function
         assert_eq!(i, 22); //integer wasn't moved, it was copied
     }
+
+
     #[test]
     fn _1_return_moved_value_from_function() {
         fn returns_input(s: String) -> String {
@@ -67,6 +79,8 @@ mod _4 {
         s = returns_input(s);
         assert_eq!(s, String::from("hi"));
     }
+
+
     #[test]
     fn _1_return_s_with_len_as_tup() {
         fn calc_len(s: String) -> (usize, String) {
@@ -75,6 +89,8 @@ mod _4 {
         let tup = calc_len(String::from("hi"));
         assert_eq!(tup.0, 2usize);
     }
+
+
     //--------------------------------------------- 4.2 references and borrowing
     #[test]
     fn _2_example_reference_usage() {
@@ -109,6 +125,8 @@ mod _4 {
         n.push_str("ya"); //n dereferences all the way back to mut s address?
         println!("s: {s}");*/
     }
+
+
     #[test]
     fn _2_mutable_references() {
         fn change(s: &mut String) {
@@ -128,6 +146,8 @@ mod _4 {
         //let r3 = &mut s; <----------------- this would be fine
 
     }
+
+
     //--------------------------------------------- 4.3 the slice type
     #[test]
     fn _3_an_enumerated_iterator() {
@@ -153,6 +173,8 @@ mod _4 {
         assert_eq!(s, "");
         assert_eq!(index, 2usize);
     }
+
+
     #[test]
     fn _3_string_slices() {
         let s = String::from("hi");
@@ -164,6 +186,8 @@ mod _4 {
         assert_eq!(i, "i");
         assert_eq!(hi, "hi");
     }
+
+
     #[test]
     fn _3_first_word_with_slices_instead() {
         fn first_word(s: &String) -> &str {
@@ -179,6 +203,8 @@ mod _4 {
         let x = first_word(&h_i);
         assert_eq!(x, "h");
     }
+
+
     #[test]
     fn _3_first_word_with_str_signature() {
         fn first_word(s: &str) -> &str {
@@ -193,6 +219,8 @@ mod _4 {
         //slices have less to do with strings and more to do with arrays
         //any types of array references can be sliced this way into another
     }
+
+
     #[test]
     fn _0_show_summary() {
         rust_book_utilities::chapter_summary(CHAPTER_NAME, CHAPTER_SUMMARY);

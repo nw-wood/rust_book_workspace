@@ -17,6 +17,7 @@ pub fn run_summary() { rust_book_utilities::chapter_summary(CHAPTER_NAME, CHAPTE
 mod _1 {
     use super::*;
 
+
     #[test]
     fn _0_show_summary() {
         rust_book_utilities::chapter_summary(CHAPTER_NAME, CHAPTER_SUMMARY);
