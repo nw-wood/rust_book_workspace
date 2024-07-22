@@ -2,11 +2,13 @@ use rust_book_utilities;
 
 const CHAPTER_NAME: &str    = "4.0 understanding ownership";
 const CHAPTER_SUMMARY: &str = "\
-4.1 - what is ownership?;
-4.2 - references and borrowing;
-4.3 - the slice type;
+4.1 - what is ownership?;       sharing isn't caring in rust
+4.2 - references and borrowing; references, but restrictive as heck
+4.3 - the slice type;           array slice notation!
 
-in this chapter we learned some stuff";
+in this chapter the book dealt with lots of string ownership examples
+as well as how both mutable and regular references behave -
+lastly, MOFUKN' GREY GOOSH BAYBA.. array slices are great c:";
 
 pub fn run_summary() { rust_book_utilities::chapter_summary(CHAPTER_NAME, CHAPTER_SUMMARY); }
 
