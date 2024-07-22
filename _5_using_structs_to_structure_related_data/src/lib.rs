@@ -2,11 +2,13 @@ use rust_book_utilities;
 
 const CHAPTER_NAME: &str    = "5.0 using structs to structure related data";
 const CHAPTER_SUMMARY: &str = "\
-5.1 - defining and instantiating structs;
-5.2 - an example program using structs;
-5.3 - method syntax;
+5.1 - defining and instantiating structs;   struct Rect { examples }
+5.2 - an example program using structs;     struct Rect { harder }
+5.3 - method syntax;                        struct rect { max }
 
-learned some stuff here - am sure of it";
+in this chapter there was loads of information on how to create struct types
+not only this, but how to define a derived trait onto one with the #[t()] syntax
+as well as methods AND associated functions";
 
 pub fn run_summary() { rust_book_utilities::chapter_summary(CHAPTER_NAME, CHAPTER_SUMMARY); }
 
