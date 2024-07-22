@@ -13,9 +13,9 @@ pub fn run_summary() { rust_book_utilities::chapter_summary(CHAPTER_NAME, CHAPTE
 #[cfg(test)]
 mod _5_tests {
     use super::*;
-    //--------------------------------------------- 5.1 defining and instiating structs
+    //--------------------------------------------- 5.1 defining and instantiating structs
     #[test]
-    fn first_struct() {
+    fn _1_first_struct() {
         struct User {
             active: bool
         }
@@ -25,7 +25,7 @@ mod _5_tests {
         assert_eq!(user.active, true);
     }
     #[test]
-    fn first_mutable_struct() {
+    fn _1_first_mutable_struct() {
         struct User {
             active: bool
         }
@@ -36,7 +36,7 @@ mod _5_tests {
         assert_eq!(user.active, false);
     }
     #[test]
-    fn build_struct_with_func() {
+    fn _1_build_struct_with_func() {
         struct User {
             active: bool
         }
@@ -49,7 +49,7 @@ mod _5_tests {
         assert_eq!(built.active, true);
     }
     #[test]
-    fn build_with_field_init() {
+    fn _1_build_with_field_init() {
         struct User {
             active: bool
         }
@@ -62,7 +62,7 @@ mod _5_tests {
         assert_eq!(built.active, true);
     }
     #[test]
-    fn struct_update_syntax() {
+    fn _1_struct_update_syntax() {
         struct User {
             active: bool
         }
@@ -78,7 +78,7 @@ mod _5_tests {
         assert_eq!(update.active, true);
     }
     #[test]
-    fn tuple_struct_example() {
+    fn _1_tuple_struct_example() {
         struct Color(i32, i32, i32);
         let black = Color(0,0,0);
         assert_eq!(black.0, 0);
@@ -91,7 +91,7 @@ mod _5_tests {
         assert_eq!(a, ());
     }*/
     #[test]
-    fn ownership_of_struct_data() {
+    fn _1_ownership_of_struct_data() {
         struct User<'a> {
             name: &'a str //lifetimes later, but name is held for life of User<'a>
         }
@@ -104,7 +104,7 @@ mod _5_tests {
         //if u goes out of scope (User<'a>) then the &s[..] in name gets dumped too
     }
     #[test]
-    fn show_summary() {
+    fn _0_show_summary() {
         rust_book_utilities::chapter_summary(CHAPTER_NAME, CHAPTER_SUMMARY);
         assert_eq!(1,1)
     }

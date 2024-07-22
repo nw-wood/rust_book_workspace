@@ -13,18 +13,18 @@ lastly, MOFUKN' GREY GOOSH BAYBA.. array slices are great c:";
 pub fn run_summary() { rust_book_utilities::chapter_summary(CHAPTER_NAME, CHAPTER_SUMMARY); }
 
 #[cfg(test)]
-mod _4_tests {
+mod _4 {
     use super::*;
     //--------------------------------------------- 4.1 what is ownership
     #[test]
-    fn string_mutation() {
+    fn _1_string_mutation() {
         let mut s = String::from("hello");
         s.push_str(" world");
         println!("{s}");
         assert_eq!(s, String::from("hello world"));
     }
     #[test]
-    fn borrowing_with_some_types() {
+    fn _1_borrowing_with_some_types() {
         let s1 = String::from("hello");
         let s2 = s1; //s1 moves to s2
         //println!("s1: {s1}"); since s1 moved to s2, s1 can not be borrowed by println!
@@ -32,19 +32,19 @@ mod _4_tests {
         assert_eq!(s2, String::from("hello"));
     }
     #[test]
-    fn cloning_instead_of_moving() {
+    fn _1_cloning_instead_of_moving() {
         let s1 = String::from("hi");
         let s2 = s1.clone();
         assert_eq!(s1, s2);
     }
     #[test]
-    fn stack_only_copying() {
+    fn _1_stack_only_copying() {
         let x = 5; //integer in stack not heap like a string
         let y = x; //x does not move into y, it is copied
         assert_eq!(y, x);
     }
     #[test]
-    fn ownership_with_function_params() {
+    fn _1_ownership_with_function_params() {
         fn takes_ownership(s: String) {
             println!("{s}");
         }
@@ -59,7 +59,7 @@ mod _4_tests {
         assert_eq!(i, 22); //integer wasn't moved, it was copied
     }
     #[test]
-    fn return_moved_value_from_function() {
+    fn _1_return_moved_value_from_function() {
         fn returns_input(s: String) -> String {
             s //immediately returns the input 's'
         }
@@ -68,7 +68,7 @@ mod _4_tests {
         assert_eq!(s, String::from("hi"));
     }
     #[test]
-    fn return_s_with_len_as_tup() {
+    fn _1_return_s_with_len_as_tup() {
         fn calc_len(s: String) -> (usize, String) {
             (s.len(), s) //in bytes not chars or graphemes
         }
@@ -77,7 +77,7 @@ mod _4_tests {
     }
     //--------------------------------------------- 4.2 references and borrowing
     #[test]
-    fn example_reference_usage() {
+    fn _2_example_reference_usage() {
 
 
         fn calculate_length(s: &String) -> usize { s.len() } //s: &String drops
@@ -110,7 +110,7 @@ mod _4_tests {
         println!("s: {s}");*/
     }
     #[test]
-    fn mutable_references() {
+    fn _2_mutable_references() {
         fn change(s: &mut String) {
             s.push_str("ya"); //mutate the data the mut ref pointed to
         }
@@ -130,7 +130,7 @@ mod _4_tests {
     }
     //--------------------------------------------- 4.3 the slice type
     #[test]
-    fn an_enumerated_iterator() {
+    fn _3_an_enumerated_iterator() {
         fn first_word(s: &String) -> usize {
             assert_eq!(&[b'h',b'i'], String::from("hi").as_bytes());
             let bytes = s.as_bytes(); //as_bytes returns a byte array reference
@@ -154,7 +154,7 @@ mod _4_tests {
         assert_eq!(index, 2usize);
     }
     #[test]
-    fn string_slices() {
+    fn _3_string_slices() {
         let s = String::from("hi");
         let h = &s[..1];
         let i = &s[1..];
@@ -165,7 +165,7 @@ mod _4_tests {
         assert_eq!(hi, "hi");
     }
     #[test]
-    fn first_word_with_slices_instead() {
+    fn _3_first_word_with_slices_instead() {
         fn first_word(s: &String) -> &str {
             let bytes = s.as_bytes();
             for (i, &item) in bytes.iter().enumerate() {
@@ -180,7 +180,7 @@ mod _4_tests {
         assert_eq!(x, "h");
     }
     #[test]
-    fn first_word_with_str_signature() {
+    fn _3_first_word_with_str_signature() {
         fn first_word(s: &str) -> &str {
             let b = s.as_bytes();
             for (i, &item) in b.iter().enumerate() {
@@ -194,7 +194,7 @@ mod _4_tests {
         //any types of array references can be sliced this way into another
     }
     #[test]
-    fn show_summary() {
+    fn _0_show_summary() {
         rust_book_utilities::chapter_summary(CHAPTER_NAME, CHAPTER_SUMMARY);
         assert_eq!(1,1)
     }

@@ -14,11 +14,11 @@ code and much more in the way of setup.";
 pub fn run_summary() { rust_book_utilities::chapter_summary(CHAPTER_NAME, CHAPTER_SUMMARY); }
 
 #[cfg(test)]
-mod _1_tests {
+mod _1 {
     use super::*;
 
     #[test]
-    fn show_summary() {
+    fn _0_show_summary() {
         rust_book_utilities::chapter_summary(CHAPTER_NAME, CHAPTER_SUMMARY);
         assert_eq!(1,1);
     }

@@ -13,11 +13,11 @@ In this chapter we go over some stuff!";
 pub fn run_summary() { rust_book_utilities::chapter_summary(CHAPTER_NAME, CHAPTER_SUMMARY); }
 
 #[cfg(test)]
-mod _3_tests {
+mod _3 {
     use super::*;
     //--------------------------------------------- 3.1 variables and mutability
     #[test]
-    fn mutable_x() {
+    fn _1_mutable_x() {
         let mut x = 5;
         println!("x: {x}");
         x = 6;
@@ -25,7 +25,7 @@ mod _3_tests {
         assert_eq!(x, 6);
     }
     #[test]
-    fn shadow_x() {
+    fn _1_shadow_x() {
         let x = 5;
         let x = x + 1;
         {
@@ -35,7 +35,7 @@ mod _3_tests {
         assert_eq!(x, 6);
     }
     #[test]
-    fn shadow_length_test() {
+    fn _1_shadow_length_test() {
         let spaces = "    ";
         let spaces = spaces.len();
         let mut spaces = spaces;
@@ -47,13 +47,13 @@ mod _3_tests {
     }
     //--------------------------------------------- 3.2 data types
     #[test]
-    fn some_floating_point_types() {
+    fn _2_some_floating_point_types() {
         let x = 3.0;
         let y: f32 = 3.0;
         assert_eq!(x, y);
     }
     #[test]
-    fn some_basic_operations() {
+    fn _2_some_basic_operations() {
         let sum = 5 + 10;
         let difference = 96.5 - sum as f64;
         let product = difference * 2.0;
@@ -64,21 +64,21 @@ mod _3_tests {
         assert_eq!(remainder, 6);
     }
     #[test]
-    fn booly_fooly() {
+    fn _2_booly_fooly() {
         let t = true;
         let f: bool = false;
         assert_eq!(f, false);
         assert_eq!(t, true);
     }
     #[test]
-    fn the_character_type() {
+    fn _2_the_character_type() {
         let c = 'z';
         let mut d = String::new();
         d.push(c);
         assert_eq!(d, "z");
     }
     #[test]
-    fn the_tuple_type() {
+    fn _2_the_tuple_type() {
         let tup: (i32, f64, u8, char) = (500, 6.4, 1, '1');
         let (x, y, z, w) = tup; //destructured tup
         assert_eq!(x, 500);
@@ -87,7 +87,7 @@ mod _3_tests {
         assert_eq!(tup.3, w); //(tup dot number notation)
     }
     #[test]
-    fn the_array_type() {
+    fn _2_the_array_type() {
         let a: [i32; 5] = [1, 2, 3, 4, 5];
         for e in a { println!("{e}"); }
         let a = [ 3; 5]; //produces [3, 3, 3, 3, 3]! (hmm)
@@ -97,7 +97,7 @@ mod _3_tests {
     }
     //--------------------------------------------- 3.3 functions
     #[test]
-    fn functional_fun() {
+    fn _3_functional_fun() {
         fn plus_one(x: i32) -> i32 {
             x + 1
         }
@@ -125,7 +125,7 @@ mod _3_tests {
      */
     //--------------------------------------------- 3.5 control flow
     #[test]
-    fn if_expressions() {
+    fn _5_if_expressions() {
         let number = 3;
         if number == 3 {
             assert_eq!(number, 3);
@@ -134,13 +134,13 @@ mod _3_tests {
         }
     }
     #[test]
-    fn if_in_let_expressions() {
+    fn _5_if_in_let_expressions() {
         let condition = true;
         let number = if condition { 5 } else { 6 };
         assert_eq!(number, 5);
     }
     #[test]
-    fn loop_and_break() {
+    fn _5_loop_and_break() {
         let mut count = 0;
         loop {
             count += 1;
@@ -149,7 +149,7 @@ mod _3_tests {
         assert_eq!(count, 10);
     }
     #[test]
-    fn loop_labels() {
+    fn _5_loop_labels() {
         //these allow for embedded loops where you can break out of a loop explicitly
         let mut count = 0;
         'outer_loop: loop {
@@ -164,7 +164,7 @@ mod _3_tests {
         assert_eq!(count, 10);
     }
     #[test]
-    fn while_conditional_loop() {
+    fn _5_while_conditional_loop() {
         let mut n = 3;
         while n != 0 {
             n-=1;
@@ -172,7 +172,7 @@ mod _3_tests {
         assert_eq!(n, 0);
     }
     #[test]
-    fn basic_for_loops() {
+    fn _5_basic_for_loops() {
         let a = [10; 10];
         for e in a {
             assert_eq!(e, 10);
@@ -181,7 +181,7 @@ mod _3_tests {
         //slice tests later
     }
     #[test]
-    fn show_summary() {
+    fn _0_show_summary() {
         rust_book_utilities::chapter_summary(CHAPTER_NAME, CHAPTER_SUMMARY);
         assert_eq!(1,1);
     }
