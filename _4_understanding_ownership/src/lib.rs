@@ -126,6 +126,71 @@ mod _4_tests {
         //let r3 = &mut s; <----------------- this would be fine
 
     }
+    //--------------------------------------------- 4.3 the slice type
+    #[test]
+    fn an_enumerated_iterator() {
+        fn first_word(s: &String) -> usize {
+            assert_eq!(&[b'h',b'i'], String::from("hi").as_bytes());
+            let bytes = s.as_bytes(); //as_bytes returns a byte array reference
+            for (i, &item) in bytes.iter().enumerate() { //arrays take the .iter() method
+                if item == b' ' {
+                    return i;
+                }
+            }
+            s.len()
+        }
+        let a = [1, 2, 3];
+        let mut iterator = a.iter();
+        assert_eq!(iterator.next(), Some(&1));
+        assert_eq!(iterator.next(), Some(&2));
+        assert_eq!(iterator.next(), Some(&3)); //more messing about
+        assert_eq!(iterator.next(), None);
+        let mut s = String::from("hi ho");
+        let index = first_word(&s);
+        s.clear();
+        assert_eq!(s, "");
+        assert_eq!(index, 2usize);
+    }
+    #[test]
+    fn string_slices() {
+        let s = String::from("hi");
+        let h = &s[..1];
+        let i = &s[1..];
+        let hi= &s[..];
+        println!("{}{}", h, i);
+        assert_eq!(h, "h");
+        assert_eq!(i, "i");
+        assert_eq!(hi, "hi");
+    }
+    #[test]
+    fn first_word_with_slices_instead() {
+        fn first_word(s: &String) -> &str {
+            let bytes = s.as_bytes();
+            for (i, &item) in bytes.iter().enumerate() {
+                if item == b' ' {
+                    return &s[0..i];
+                }
+            }
+            &s[..] //returns string slices now
+        }
+        let h_i = String::from("h i");
+        let x = first_word(&h_i);
+        assert_eq!(x, "h");
+    }
+    #[test]
+    fn first_word_with_str_signature() {
+        fn first_word(s: &str) -> &str {
+            let b = s.as_bytes();
+            for (i, &item) in b.iter().enumerate() {
+                if item == b' ' { return &s[0..i]; }
+            }
+            &s[..] //you can take a slice ref from a string ref as well
+        }
+        let s = first_word("h i");
+        assert_eq!(s, "h");
+        //slices have less to do with strings and more to do with arrays
+        //any types of array references can be sliced this way into another
+    }
     #[test]
     fn show_summary() {
         rust_book_utilities::chapter_summary(CHAPTER_NAME, CHAPTER_SUMMARY);
