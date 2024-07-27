@@ -2,7 +2,7 @@ use rust_book_utilities;
 
 const CHAPTER_NAME: &str    = "8.0 common collections";
 const CHAPTER_SUMMARY: &str = "\
-8.1 - storing lists of values with vectors;
+8.1 - storing lists of values with vectors;         iterating over them and modifying them as well
 8.2 - storing utf-8 encoded text with strings;
 8.3 - storing keys with values in hash maps;";
 
@@ -27,7 +27,7 @@ mod _8_tests {
         let third: Option<&i32> = v.get(2); //<--- uses get which returns an Option<T>
         match third {
             Some(third) => println!("third: {third}"),
-            None => println!("no element")
+            None => ()
         }
         assert_eq!(v[2], 3);
     }
@@ -66,13 +66,69 @@ mod _8_tests {
                 En::Int(n) => assert_eq!(*n, 3),
                 En::Float(f) => assert_eq!(*f, 23.0),
                 En::Text(s) => assert_eq!(*s, "hi".to_string())
-                //_ => println!("no")
             }
         }
-        println!("good");
     }
 
+    //--------------------------------------------- 8.2 Strings
+    #[test]
+    fn _2_to_string_method() {
+        let data = "hi";
+        let data = data.to_string();
+        let data2 = "hi".to_string(); //works fine too
+        assert_eq!(data, "hi");
+        assert_eq!(data2, "hi");
+    }
 
+    #[test]
+    fn _2_mutating_a_string() {
+        let mut s = "hi".to_string();
+        s.push_str("ho");                 //<-- str mut
+        assert_eq!(s, "hiho".to_string());
+        s.push('h');                        //<-- 1 char mut
+        assert_eq!(s, "hihoh".to_string());
+    }
+
+    #[test]
+    fn _2_concatenation_with_string_refs() {
+        let a = "1".to_string();
+        let b = "2".to_string();
+        let c = "3".to_string();
+        let a = a + &b + &c;
+        assert_eq!(a, "123".to_string());
+    }
+
+    #[test]
+    fn _2_concatenation_with_format() {
+        let a = "1".to_string();
+        let b = "2".to_string();
+        let c = "3".to_string();
+        let d = format!("{a}-{b}-{c}!!");
+        println!("{d}");
+        assert_eq!(d, "1-2-3!!".to_string()); //format! is like println!, but returns a string
+    }
+
+    #[test]
+    fn _2_indexing_into_strings() {
+        /*let a = "hi".to_string();
+        let a = &a[0];
+        let a = a[0];
+        println!("{a}"); won't work!*/
+        let a = "hi".to_string();
+        let a = a[..1].to_string(); //<-- string slices!
+        println!("{a}");
+        assert_eq!(a, "h".to_string());
+    }
+
+    #[test]
+    fn _2_iter_chars_instead_of_bytes() {
+        for c in "@@@@@@@@@@@@@@@".chars() { //returns iterator for string as chars
+            assert_eq!(c, '@');
+        }
+        for c in "@@@".bytes() { //as bytes instead
+            assert_eq!(c, 64);
+        }
+    }
 
     #[test]
     fn _0_show_summary() {
