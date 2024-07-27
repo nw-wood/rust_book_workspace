@@ -3,8 +3,8 @@ use rust_book_utilities;
 const CHAPTER_NAME: &str    = "8.0 common collections";
 const CHAPTER_SUMMARY: &str = "\
 8.1 - storing lists of values with vectors;         iterating over them and modifying them as well
-8.2 - storing utf-8 encoded text with strings;
-8.3 - storing keys with values in hash maps;";
+8.2 - storing utf-8 encoded text with strings;      playing with strings and slices again
+8.3 - storing keys with values in hash maps;        hashmaps, the k, v pairs of rust";
 
 pub fn run_summary() { rust_book_utilities::chapter_summary(CHAPTER_NAME, CHAPTER_SUMMARY); }
 
@@ -130,9 +130,75 @@ mod _8_tests {
         }
     }
 
+    //--------------------------------------------- 8.3 Hash Maps
+    #[test]
+    fn _3_creating_accessing_hashmaps() { //key value pair system
+        use std::collections::HashMap;
+        let mut map = HashMap::new();
+        map.insert("blue".to_string(), 10);
+        let k = "blue".to_string();
+        let v = map.get(&k).copied().unwrap_or(0); //would return &i32, but ref copied
+        assert_eq!(v, 10);
+    }
+
+    #[test]
+    fn _3_hashmaps_with_ownership() {
+        use std::collections::HashMap;
+        let k = "favorite color".to_string();
+        let v = "blue".to_string();
+        let mut map = HashMap::new();
+        //map.insert(k, v); will take ownership
+        map.insert(&k, &v);  //cool
+        assert_eq!(k, "favorite color".to_string());
+    }
+
+    #[test]
+    fn _3_hashmaps_iteration() {
+        use std::collections::HashMap;
+        let mut map = HashMap::new();
+        map.insert(1, 1);
+        map.insert(2, 2);
+        map.insert(3, 3);
+        for (k, v) in &map { assert_eq!(k, v); }
+    }
+
+    #[test]
+    fn _3_insert_or_and_hashmaps() {
+        use std::collections::HashMap;
+        let mut map = HashMap::new();
+        map.insert("a",1);
+        map.entry("a").or_insert(1); //None if no "a" key, so, .or_insert
+        //map.entry("a").unwrap(); would panic
+        let result = map.get("a").unwrap();
+        assert_eq!(*result, 1);
+        println!("cool");
+    }
+
+    #[test]
+    fn _3_updating_a_hashmap_value() {
+        use std::collections::HashMap;
+        let s = "hi ho he ha hu hy";
+        let mut map = HashMap::new();
+        for w in s.split_whitespace() {
+            map.entry(w).or_insert(0);
+        }
+        for (k, v) in map { //way better
+            println!("k: {k}, v: {v}");
+            assert_eq!(v, 0); //all v should be 0
+        }
+        /*assert_eq!(*map.get("hi").unwrap(), 0); //getting better with dereferencing
+        assert_eq!(*map.get("ho").unwrap(), 0);
+        assert_eq!(*map.get("he").unwrap(), 0);
+        assert_eq!(*map.get("ha").unwrap(), 0);
+        assert_eq!(*map.get("hu").unwrap(), 0);
+        assert_eq!(*map.get("hy").unwrap(), 0);*/
+    }
+
     #[test]
     fn _0_show_summary() {
         rust_book_utilities::chapter_summary(CHAPTER_NAME, CHAPTER_SUMMARY);
         assert_eq!(1,1)
     }
+
+
 }
