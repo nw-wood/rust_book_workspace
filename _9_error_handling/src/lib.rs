@@ -86,7 +86,7 @@ mod _9_tests {
     }
 
     #[test]
-    fn error_propagation() {
+    fn _2_error_propagation() {
         use std::fs::File;
         use std::io::{Read};
         fn read() -> Result<String, Error> {
@@ -104,9 +104,9 @@ mod _9_tests {
         use std::fs::File;
         use std::io::{Read, ErrorKind};
 
-        fn bytes_in_file(f: &str) -> Result<usize, Error> {
+        fn bytes_in_file(f: &str) -> Result<usize, Error> { //<-- explicit result type
             let b = File::open(f) //<-- runs a function that returns a result
-                .unwrap_or_else(|e| match e.kind() { //<-- anon func on error
+                .unwrap_or_else(|e| match e.kind() { //<-- fn closure(e: Error) { ... }
                     ErrorKind::NotFound => File::create("file").expect("error creating"), //<-- panic via expect
                     _ => panic!("error opening and creating") //explicitly panicking
                 })
@@ -145,7 +145,7 @@ mod _9_tests {
     }
 
     #[test]
-    fn show_summary() {
+    fn _0_show_summary() {
         rust_book_utilities::chapter_summary(CHAPTER_NAME, CHAPTER_SUMMARY);
         assert_eq!(1,1)
     }
