@@ -2,9 +2,9 @@ use rust_book_utilities;
 
 const CHAPTER_NAME: &str    = "10.0 generic types, traits, and lifetimes";
 const CHAPTER_SUMMARY: &str = "\
-10.1 - generic data types;
-10.2 - traits: defined shared behavior;
-10.3 - validating references with lifetimes;";
+10.1 - generic data types;                      T, U, and beyond
+10.2 - traits: defined shared behavior;         on methods functions structs you name it
+10.3 - validating references with lifetimes;    directing the borrow checker";
 
 pub fn run_summary() { rust_book_utilities::chapter_summary(CHAPTER_NAME, CHAPTER_SUMMARY); }
 
@@ -282,7 +282,7 @@ mod _10_tests {
     }
 
     #[test]
-    fn return_a_traited_type() {
+    fn _2_return_a_traited_type() {
         trait Trait {
             fn get_s(&self) -> String;
         }
@@ -308,7 +308,7 @@ mod _10_tests {
     }
 
     #[test]
-    fn conditional_method_implementation() {
+    fn _2_conditional_method_implementation() {
         use std::fmt::Display;
         struct Pair<T> {
             x: T,
@@ -326,7 +326,7 @@ mod _10_tests {
                 } else {
                     println!("y: {}", self.y);
                 }
-            }
+              }
         }
         let p = Pair::new(10, 20);
         p.cmp_display();
@@ -337,7 +337,82 @@ mod _10_tests {
         //T must have the Display trait to acquire ToString
     }
 
-    //10.2 was a bit more complicated than the rest, but here it is
+    //----------------------------------------------- 10.3 validating references with lifetimes
+
+    /*
+    &i32 <--- a reference
+    &'a i32 <--- reference with a lifetime specified
+    &'a mut i32 <-- a mut ref with life specified
+    */
+
+    #[test]
+    fn _3_lifetimes_in_functions() {
+        fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
+            if x.len() > y.len() { x }
+            else { y }
+        }
+        let a = "long";
+        let b = "longer";
+        assert_eq!(longest(a, b), b);
+    }
+
+    #[test]
+    fn _3_lifetimes_in_a_structs_definition() {
+        struct Item<'a> { //life a' declared for Item
+            field: &'a str // <-- a str ref with life 'a
+        }
+        let s = String::from("Call me Ishmael. Some years ago...");
+        let first_sentence = s.split('.').next().unwrap();
+        let i = Item {
+            field: first_sentence // <--- assumes life 'a for field
+        };
+        assert_eq!(i.field, "Call me Ishmael")
+    } //an instance of Item can not outlive the reference in field
+
+    #[test]
+    fn _3_lifetimes_defined_in_methods() {
+        struct Item<'a> {
+            field: &'a str
+        }
+        impl<'a> Item<'a> { //asserts lifetime 'a for &self and usize due to elision
+            fn poof(&self) -> usize {
+                self.field.len()
+            }
+        }
+        let s = String::from("Call me Ishmael. Some years ago...");
+        let first_sentence = s.split('.').next().unwrap();
+        let i = Item {
+            field: first_sentence
+        };
+        assert_eq!(i.poof(), i.field.len());
+    }
+
+    #[test]
+    fn _3_a_static_lifetime_example() {
+        let s: &'static str = "static";
+        //this makes the assertion that s will be part of the programs binary
+        //by saying this for a value it's essentially making it exist forever -
+        //which is not always what is intended or practical
+        assert_eq!(s, "static");
+    }
+
+    #[test]
+    fn _3_generics_traits_and_lifetimes_buffet() {
+        use std::fmt::Display;
+        fn longest_with_announce<'a, T: Display + PartialOrd>( //<--- instead of where block
+            x: &'a str,
+            y: &'a str,
+            ann: T
+        ) -> &'a str
+        //where T: Display + PartialOrd,
+        {
+            println!("announcement: {}", {ann});
+            if x.len() > y.len() { x }
+            else { y }
+        }
+        let s = longest_with_announce("long", "longer", "Longest");
+        assert_eq!(s, "longer");
+    }
 
     #[test]
     fn _0_show_summary() {
