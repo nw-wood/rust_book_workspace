@@ -10,6 +10,7 @@ pub fn run_summary() { rust_book_utilities::chapter_summary(CHAPTER_NAME, CHAPTE
 
 #[cfg(test)]
 mod _10_tests {
+
     use super::*;
     //----------------------------------------------- 10.0 setup for 10.1
     //10.0 starts this way
@@ -153,90 +154,190 @@ mod _10_tests {
     //----------------------------------------------- 10.2 defining shared behavior with traits
 
     #[test]
-    fn _2_traits_and_how_to_use_them() {
-        pub trait Summary {//<-- specifying the summary trait
+    fn _2_defining_and_implementing_a_trait() {
+        pub trait Summary { //define trait, pub or private
+            fn headline(&self) -> String; //fn signatures that must be implemented
+        }
 
-            fn summarize(&self) -> String; //<-- if using Summary must handle signature
+        pub struct Article { //an arbitrary struct
+            pub headline: String
+        }
 
-            fn summarize_harder(&self) -> String { //a default implementation
-                format!("{}", self.summarize()) //kinda silly, works fine
+        impl Summary for Article { //implement the trait on the struct
+            fn headline(&self) -> String {
+                format!("headline: {}", self.headline)
             }
         }
-        pub struct Article {
-            pub headline: String,
-            pub location: String,
-            pub author: String,
-            pub content: String
-        }
-        impl Summary for Article {
-            fn summarize(&self) -> String { //<-- must implement this method to satisfy Summary
-                println!("{}", self.content); //using up fields
-                format!("{}{}{}", self.headline, self.author, self.location)
-            }
-            //note summarize_harder(&self) did not need to be specified, but we can
-            /*fn summarize_harder(&self) -> String {
-            }*/
-        }
-        pub struct Tweet {
-            pub username: String,
-            pub content: String,
-            pub reply: bool,
-            pub retweet: bool
-        }
-        impl Summary for Tweet {
-            //compiler insists we add the summarize trait
-            fn summarize(&self) -> String {
-                //the IDE implemented a
-                println!("{}{}", self.reply, self.retweet); //using up fields
-                format!("{}: {}", self.username, self.content)
-            }
-        }
-        let article = Article {
-            headline: "head-point".to_string(),
-            location: "the bulkiness".to_string(),
-            author: "wood".to_string(),
-            content: "lorem ipsum".to_string()
+        let s = Article {
+            headline: "meow".to_string()
         };
-        let tweet = Tweet {
-            username: "wood".to_string(),
-            content: "c o n t e n t".to_string(),
-            reply: true,
-            retweet: true
-        };
-
-        let article_summary = article.summarize();
-        let tweet_summary = tweet.summarize();
-        let f = format!("{}{}{}", article.headline, article.author, article.location);
-        assert_eq!(article_summary, f);
-        let f =  format!("{}: {}", tweet.username, tweet.content);
-        assert_eq!(f, tweet_summary);
-        assert_eq!(f, tweet.summarize_harder());
+        let s = s.headline(); //can use the headline method now
+        assert_eq!(s, "headline: meow".to_string());
     }
 
     #[test]
-    fn _2_traits_as_parameters() {
-        pub trait HelloTrait {
-            fn hello(&self) -> String {
-                "hello".to_string()
+    fn _2_using_default_implementations() {
+        pub trait Summary {
+            fn default_text(&self) -> String {
+                "default text...".to_string() //default implementation
             }
         }
-        /*pub fn notify(item: &impl HelloTrait) -> String {
-            let s = item.hello();
-            assert_eq!(s, "hello".to_string());
-            item.hello()
-        }*/
-        struct Item {
-        }
-
-        impl HelloTrait for Item { }
-        let i = Item {};
-        let s = i.hello();
-        assert_eq!(s, "hello".to_string())
-
-        //notify(HelloTrait item?)... brain farting
+        pub struct Article { } //declare empty Article Struct
+        impl Summary for Article {} //declare summary trait on article
+        let s = Article { }; //define an article
+        let s = s.default_text(); //run the default method from the trait implementation
+        assert_eq!(s, "default text...".to_string());
     }
 
-    //coming back later - need to focus on the material more
+    #[test]
+    fn _2_overriding_a_default_trait_method() {
+        pub trait ExampleTrait {
+            fn example_method(&self) -> usize {
+                10 //default method will return 10
+            }
+        }
+        pub struct ExampleStruct { } //no data is fine
+        impl ExampleTrait for ExampleStruct {
+            fn example_method(&self) -> usize { //declared on implementation overrides default
+                20
+            }
+        }
+        let example = ExampleStruct {};
+        assert_eq!(example.example_method(), 20);
+    }
+
+    #[test]
+    fn _2_using_traits_as_function_parameters() {
+        pub trait Summary {
+            fn return_string(&self) -> String {
+                "a string".to_string()
+            }
+        }
+        pub struct Article {
+            some_string: String
+        }
+        impl Summary for Article {
+            fn return_string(&self) -> String {
+                format!("{}", self.some_string)
+            }
+        }
+        fn requires_trait_param(item: &impl Summary) -> String {
+            item.return_string()
+        }
+        let a = Article { //is an article, and implements the summary trait
+            some_string: "hello".to_string()
+        };
+
+        let s = requires_trait_param(&a);
+        assert_eq!(s, "hello".to_string());
+    }
+
+    #[test]
+    fn _2_using_trait_bound_syntax() {
+        pub trait Summary { fn return_string(&self) -> String { "summary".to_string() } }
+        pub struct Article { some_string: String }
+        impl Summary for Article { fn return_string(&self) -> String { self.some_string.clone() } }
+
+        //important bit - these lines mean the same thing vvv
+        //this is called trait bound syntax, and lets you be more specific
+
+        //fn requires_trait_param(item: &impl Summary) -> String { item.return_string() }
+        fn requires_trait_param<T: Summary>(item: &T) -> String {
+            item.return_string()
+        }
+
+        /*case:
+
+        pub fn notify(item1: &impl Summary, item2: &imply Summary {     <--- fine, but won't enforce type
+        pub fn notify<T: Summary>(item1: &T, item2: &T) {               <--- restricts to same type
+
+        */
+
+        //there are more ways to express these relationships ---
+
+        /*case:
+
+        pub fn notify(item: &(impl Summary + Display)) {                <--- fat
+        pub fn notify<T: Summary + Display>(item: &T) {                 <--- trait bound ver
+
+        */
+
+        //using a where clause to help with legibility
+
+        /*case:
+
+        fn some_f<T: Display + Clone, U: Clone + Debug>(t: &T, u: &U) -> i32 {  <--- fatter
+
+        fn some_f<T, U>(t: &T, u: &U) -> i32                                    <--- fattest
+        where
+            T: Display + Clone,
+            U: Clone + Debug
+        {
+
+        */
+
+        let a = Article { some_string: "hello".to_string() };
+        let s = requires_trait_param(&a);
+        assert_eq!(s, "hello".to_string());
+    }
+
+    #[test]
+    fn return_a_traited_type() {
+        trait Trait {
+            fn get_s(&self) -> String;
+        }
+        struct Struct { s: String }
+        impl Trait for Struct {
+            fn get_s(&self) -> String {
+                self.s.clone()
+            }
+        }
+        fn returns_traited(item: &impl Trait) -> impl Trait {
+            Struct {
+                s: item.get_s()
+            }
+            //this won't work if returning multiple types
+        }
+
+        let s = Struct {
+            s: "hello".to_string()
+        };
+        let str = returns_traited(&s); //incredible
+        assert_eq!(str.get_s(), "hello".to_string());
+
+    }
+
+    #[test]
+    fn conditional_method_implementation() {
+        use std::fmt::Display;
+        struct Pair<T> {
+            x: T,
+            y: T
+        }
+        impl<T> Pair<T> {
+            fn new(x: T, y: T) -> Self {
+                Self { x, y }
+            }
+        }
+        impl<T: Display + PartialOrd> Pair<T> { //generic implementation for Pairs with both traits
+            fn cmp_display(&self) {
+                if self.x >= self.y {
+                    println!("x: {}", self.x);
+                } else {
+                    println!("y: {}", self.y);
+                }
+            }
+        }
+        let p = Pair::new(10, 20);
+        p.cmp_display();
+        assert_eq!(p.x, 10);
+        assert_eq!(p.y, 20);
+        //can also conditionally implement a trait for any type that implements another trait
+        //impl<T: Display> ToString for T {
+        //T must have the Display trait to acquire ToString
+    }
+
+    //10.2 was a bit more complicated than the rest, but here it is
 
     #[test]
     fn _0_show_summary() {
