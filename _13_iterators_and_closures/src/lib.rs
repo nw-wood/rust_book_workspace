@@ -11,9 +11,12 @@ pub fn run_summary() { rust_book_utilities::chapter_summary(CHAPTER_NAME, CHAPTE
 
 #[cfg(test)]
 mod _13_tests {
+    use std::fmt::Debug;
     use std::thread;
     use std::time::Duration;
+
     use super::*;
+
     //---------------------------------------------- 13.1 capturing the environment with closures
     /*
         fn giveaway(&self, user_preference: Option<ShirtColor>) -> ShirtColor {
@@ -84,19 +87,10 @@ mod _13_tests {
 
     #[test]
     fn _1_using_sort_by_key() {
-        use std::cmp::PartialEq;
-        #[derive(Debug)]
+        #[derive(Debug, PartialEq)]
         struct Rectangle {
             width: u32,
             height: u32,
-        }
-        //used twice because of tests, but it would be unusual otherwise
-        //noinspection DuplicatedCode
-        impl PartialEq for Rectangle { //rectangles need the partialeq trait
-            fn eq(&self, other: &Self) -> bool {
-                if self.width == other.width && self.height == other.height { true }
-                else { false }
-            }
         }
         let mut list = [
             Rectangle { width: 10, height: 1 },
@@ -112,19 +106,12 @@ mod _13_tests {
 
     #[test]
     fn _1_an_fnmut_as_opposed_to_fnonce() {
-        use std::cmp::PartialEq;
-        #[derive(Debug)]
+        #[derive(Debug, PartialEq)]
         struct Rectangle {
             width: u32,
             height: u32,
         }
         //noinspection DuplicatedCode
-        impl PartialEq for Rectangle { //rectangles need the partialeq trait
-            fn eq(&self, other: &Self) -> bool {
-                if self.width == other.width && self.height == other.height { true }
-                else { false }
-            }
-        }
         let mut list = [
             Rectangle { width: 10, height: 1 },
             Rectangle { width: 3, height: 5 },
@@ -142,6 +129,77 @@ mod _13_tests {
 
     }
 
+    // -------------------------------------------- 13.2 Processing a Series of Items with Iterators
+
+    #[test]
+    fn _2_lazy_ol_iterators() {
+        let v1 = vec![1, 1, 1];
+        let v1_iter = v1.iter();
+        for index_value in v1_iter {
+            assert_eq!(*index_value, 1);
+        }
+    }
+
+    #[test]
+    fn _2_iterator_next_method_demo() {
+        let v = vec![1, 2, 3];
+        let mut v_iter = v.iter();
+        assert_eq!(v_iter.next(), Some(&1));
+        assert_eq!(v_iter.next(), Some(&2));
+        assert_eq!(v_iter.next(), Some(&3));
+        assert_eq!(v_iter.next(), None);
+    }
+
+    #[test]
+    fn _2_consuming_an_iterator_with_sum() {
+        let v = vec![1, 2, 3];
+        let v_iter = v.iter();
+        let total: i32 = v_iter.sum();
+        assert_eq!(total, 6);
+    }
+
+    #[test]
+    fn _2_creating_an_iter_from_an_iter_and_collecting() {
+        let v1 = vec![1, 2, 3];
+        let v2: Vec<_> = v1.iter().map(|x| x + 1).collect();
+        assert_eq!(v2, vec![2, 3, 4]);
+    }
+
+    #[test]
+    fn _2_capturing_the_env_with_a_closure() {
+        #[derive(Debug, PartialEq)]
+        struct Shoe {
+            size: u32,
+            style: String,
+        }
+        fn shoes_in_size(shoes: Vec<Shoe>, shoe_size: u32) -> Vec<Shoe> {
+            shoes.into_iter().filter(|shoe| shoe.size == shoe_size).collect() //consumes shoes
+        }
+        let shoes = vec![
+            Shoe { size: 10, style: "sneaker".to_string(), },
+            Shoe { size: 13, style: "sandal".to_string(), },
+            Shoe { size: 10, style: "boot".to_string(), }
+        ];
+        let in_my_size = shoes_in_size(shoes, 10);
+        assert_eq!(in_my_size, vec![Shoe { size: 10, style: "sneaker".to_string() }, Shoe { size: 10, style: "boot".to_string() }])
+    }
+    //13.3 skip - goes back to I/O program and implements direct usage of env::args().collect();
+    //I feel I should write this program out separately, so I have a better grasp of it
+    //13.4 audio decoder example
+    /*
+    let buffer: &mut [i32];                         <--- an empty mutable i32 array reference
+    let coefficients: [i64; 12];                    <--- an array of 12 i64's
+    let qlp_shift: i16;                             <--- an empty i16
+
+    for i in 12..buffer.len() {                     <--- for i in index 12 through length of buffer
+        let prediction = coefficients.iter()                        <--- iter for array
+                                     .zip(&buffer[i - 12..i])       <--- zip method, i32 array provided
+                                     .map(|(&c, &s)| c * s as i64)  <--- product of tuple params as i64
+                                     .sum::<i64>() >> qlp_shift;    <--- collect by sum::i64 shifted by i16
+        let delta = buffer[i];                      <--- delta is an i32 ref from index i
+        buffer[i] = prediction as i32 + delta;      <--- pred as i32 + the value from buffer[i]
+    }
+     */
     #[test]
     fn _0_show_summary() {
         rust_book_utilities::chapter_summary(CHAPTER_NAME, CHAPTER_SUMMARY);
