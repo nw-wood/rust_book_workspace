@@ -42,6 +42,7 @@ name = "_15_smart_pointers"
 version = "0.1.0"
 dependencies = [
  "rust_book_utilities",
+ "rust_list",
 ]
 
 [[package]]
@@ -240,6 +241,12 @@ dependencies = [
 [[package]]
 name = "rust_book_utilities"
 version = "0.1.0"
+
+[[package]]
+name = "rust_list"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "88b4aad43203d75938b3907ce3f82a9993d8fa24fa87f3efee9a077fa62d8feb"
 
 [[package]]
 name = "wasi"
