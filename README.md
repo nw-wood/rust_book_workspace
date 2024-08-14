@@ -3,7 +3,7 @@ https://doc.rust-lang.org/book/
 many hand written versions of the code examples from the rust book, and some copies 😉
 
 ```
-v\    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.89s
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.89s
      Running unittests src/lib.rs (target/debug/deps/_10_generic_types_traits_and_lifetimes-8d29ae1e784fba0c)
 
 running 18 tests
