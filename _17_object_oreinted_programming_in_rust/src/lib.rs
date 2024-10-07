@@ -107,16 +107,16 @@ mod _17_tests {
                 }
             }
 
-            pub fn approve(&mut self) {
+            pub fn _approve(&mut self) {
                 if let Some(s) = self.state.take() {
-                    self.state = Some(s.approve())
+                    self.state = Some(s._approve())
                 }
             }
         }
 
         trait State {
             fn request_review(self: Box<Self>) -> Box<dyn State>;
-            fn approve(self: Box<Self>) -> Box<dyn State>;
+            fn _approve(self: Box<Self>) -> Box<dyn State>;
             /*fn content<'a>(&self, post: &'a Post) -> &'a str {
                 ""
             }*/
@@ -129,7 +129,7 @@ mod _17_tests {
                 Box::new(PendingReview {})
             }
 
-            fn approve(self: Box<Self>) -> Box<dyn State> {
+            fn _approve(self: Box<Self>) -> Box<dyn State> {
                 self
             }
         }
@@ -141,19 +141,19 @@ mod _17_tests {
                 self
             }
 
-            fn approve(self: Box<Self>) -> Box<dyn State> {
-                Box::new(Published {})
+            fn _approve(self: Box<Self>) -> Box<dyn State> {
+                Box::new(_Published {})
             }
         }
 
-        struct Published {}
+        struct _Published {}
 
-        impl State for Published {
+        impl State for _Published {
             fn request_review(self: Box<Self>) -> Box<dyn State> {
                 self
             }
 
-            fn approve(self: Box<Self>) -> Box<dyn State> {
+            fn _approve(self: Box<Self>) -> Box<dyn State> {
                 self
             }
 

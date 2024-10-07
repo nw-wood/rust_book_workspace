@@ -1,2 +1,2 @@
 //#[derive(Debug)]
-pub struct Asparagus { pub species: String }
+pub struct _Asparagus { pub species: String }

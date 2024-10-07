@@ -24,10 +24,10 @@ mod _7_tests { // <-------------------------------- 7.1 welcome to modules
 
     //--------------------------------------------- 7.2 defining modules
     //#[test]
-    use crate::_7_tests::garden::vegetables::Asparagus;
+    use crate::_7_tests::garden::vegetables::_Asparagus;
     pub mod garden;
     fn _2_usage_of_declared_submodule() {
-        let plant = Asparagus { species: String::from("full auto") };
+        let plant = _Asparagus { species: String::from("full auto") };
         assert_eq!(plant.species, String::from("full auto"));
     }
 
